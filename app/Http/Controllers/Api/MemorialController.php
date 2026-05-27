@@ -23,6 +23,15 @@ class MemorialController extends Controller
 
         $data['slug'] = $this->uniqueSlug($data['slug'] ?? $data['full_name']);
 
+        unset(
+            $data['facts'],
+            $data['qualities'],
+            $data['photos'],
+            $data['timelines'],
+            $data['quotes'],
+            $data['life_sections']
+        );
+
         $memorial = Memorial::create($data);
 
         $this->syncNested($memorial, $request);
@@ -47,6 +56,15 @@ class MemorialController extends Controller
         if (isset($data['slug'])) {
             $data['slug'] = Str::slug($data['slug']);
         }
+
+        unset(
+            $data['facts'],
+            $data['qualities'],
+            $data['photos'],
+            $data['timelines'],
+            $data['quotes'],
+            $data['life_sections']
+        );
 
         $memorial->update($data);
 
