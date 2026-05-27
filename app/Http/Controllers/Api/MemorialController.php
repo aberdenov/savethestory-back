@@ -32,6 +32,8 @@ class MemorialController extends Controller
             $data['life_sections']
         );
 
+        $data['user_id'] = $request->user()->id;
+
         $memorial = Memorial::create($data);
 
         $this->syncNested($memorial, $request);
