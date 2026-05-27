@@ -32,7 +32,7 @@ class MemorialController extends Controller
             $data['life_sections']
         );
 
-        $data['user_id'] = $request->user()->id;
+        $data['user_id'] = $request->user()?->id ?? 1;
 
         $memorial = Memorial::create($data);
 
