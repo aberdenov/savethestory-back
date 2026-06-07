@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Memorial;
+use App\Models\MemorialQuote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -199,5 +200,32 @@ class MemorialController extends Controller
         }
 
         return $slug;
+    }    
+
+    public function approveQuote(MemorialQuote $quote)
+    {
+        $quote->update([
+            'status' => 'approved',
+        ]);
+
+        return response()->json($quote);
+    }
+
+    public function rejectQuote(MemorialQuote $quote)
+    {
+        $quote->update([
+            'status' => 'rejected',
+        ]);
+
+        return response()->json($quote);
+    }
+
+    public function deleteQuote(MemorialQuote $quote)
+    {
+        $quote->delete();
+
+        return response()->json([
+            'message' => 'Воспоминание удалено',
+        ]);
     }
 }
