@@ -11,9 +11,10 @@ use Illuminate\Validation\Rule;
 
 class MemorialController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Memorial::withCount(['photos', 'timelines', 'quotes', 'lifeSections'])
+        return Memorial::where('user_id', $request->user()->id)
+            ->withCount(['photos', 'timelines', 'quotes', 'lifeSections'])
             ->latest()
             ->paginate(12);
     }
@@ -33,7 +34,7 @@ class MemorialController extends Controller
             $data['life_sections']
         );
 
-        $data['user_id'] = $request->user()?->id ?? 1;
+        $data['user_id'] = $request->user()->id;
 
         $memorial = Memorial::create($data);
 
