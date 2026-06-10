@@ -5,11 +5,8 @@ use App\Http\Controllers\Api\MemorialController;
 use App\Http\Controllers\Api\PublicMemorialController;
 use App\Http\Controllers\Api\UploadController;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:sanctum')->group(function () {    
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource('memorials', MemorialController::class);
@@ -31,3 +28,6 @@ Route::prefix('public')->group(function () {
     Route::post('/memorials/{memorial}/quotes', [PublicMemorialController::class, 'storePublicQuote']);
 });
 
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
